@@ -38,7 +38,7 @@ After `report.json` file generated in reports folder, you can run this command t
 $ npm run report
 ```
 <img width="220" alt="Screen Shot 2024-07-23 at 17 37 00" src="https://github.com/user-attachments/assets/60ca6489-6038-4851-a592-5c19a0418f22">
-![Screen Shot 2024-07-23 at 17 35 19](https://github.com/user-attachments/assets/37d42679-d090-4107-8ebe-574f4e64388c)
+![Screen Shot 2024-07-23 at 17 35 19](https://github.com/user-attachments/assets/13bc6948-6862-4987-b2ef-5ce2c6dc2a9a)
 
 ### Directory Structure
         .
