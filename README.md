@@ -34,6 +34,7 @@ After `report.json` file generated in reports folder, you can run this command t
 ```sh
 $ npm run report
 ```
+![Screen Shot 2024-07-23 at 17 32 19](https://github.com/user-attachments/assets/f630dc88-ec1a-440e-ae6e-1f15e51254c4)
 
 ### Directory Structure
         .
