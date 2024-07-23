@@ -4,14 +4,20 @@
 - Go https://go.dev/doc/install
   ```sh
   $ brew install go
+  $ go install github.com/cucumber/godog/cmd/godog@latest
   ```
 - Set your environment
   ```sh
   export PATH=$PATH:/usr/local/go/bin
+  export PATH=$PATH:$(go env GOPATH)/bin'
   ```
 - Reload your shell configuration
+  ```sh
+  $ source ~/.zshrc
   ```
-  source ~/.zshrc
+- Check your godog version
+  ```
+  $ godog version
   ```
 
 ### Getting started
@@ -22,17 +28,28 @@
 #### Step 2 - Run the test
 Run the test in the directory to run the steps you have defined
 ```sh
-go test -v main_test.go
+$ make tests
+```
+After `report.json` file generated in reports folder, you can run this command to see the report
+```sh
+$ npm run report
 ```
 
 ### Directory Structure
         .
-        ├── features/ # Feature files (test scenarios)
-        │  ├── sample.feature # Example feature file
+        ├── features
+        │  ├── init.feature
         │  └── ...
-        │
-        ├── go.mod
-        ├── go.sum
-        ├── godog_report.json
+        ├── helpers
+        │  ├── generate_report.js
+        │  └── ...
+        ├── reports
+        │  ├── report.json
+        │  └── report.html
+        ├── steps
+        │  ├── steps.go
+        │  └── ...
         ├── main_test.go
-        └── main.go
+        ├── package.json
+        ├── README.md
+        └── Makefile

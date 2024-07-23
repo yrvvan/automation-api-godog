@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "report": "node ./helpers/generate_report.js"
+    },
+    "dependencies": {
+        "cucumber-html-reporter": "^7.1.1"
+    }
+}

@@ -1,76 +1,41 @@
 package main
 
 import (
-  "context"
-  "errors"
-  "os"
-  "fmt"
-  "testing"
+	"os"
+	"testing"
 
-  "github.com/cucumber/godog"
+	"godog-automation/steps"
+
+	"github.com/cucumber/godog"
 )
 
-// godogsCtxKey is the key used to store the available godogs in the context.Context.
-type godogsCtxKey struct{}
-
-func thereAreGodogs(ctx context.Context, available int) (context.Context, error) {
-  return context.WithValue(ctx, godogsCtxKey{}, available), nil
+func FeatureContext(s *godog.ScenarioContext) {
+	s.Step(`^there are no items$`, steps.ThereAreNoItems)
+	s.Step(`^I create (\d+) item named "([^"]*)"$`, steps.ICreateAnItemNamed)
+	s.Step(`^I should have (\d+) items$`, steps.IShouldHaveItems)
+	s.Step(`^an item named "([^"]*)"$`, steps.AnItemNamed)
+	s.Step(`^I read the item with ID (\d+)$`, steps.IReadTheItemWithID)
+	s.Step(`^I should get the item with name "([^"]*)"$`, steps.IShouldGetTheItemWithName)
+	s.Step(`^I update the item with ID (\d+) to have name "([^"]*)"$`, steps.IUpdateTheItemWithIDToHaveName)
+	s.Step(`^the item with ID (\d+) should have name "([^"]*)"$`, steps.TheItemWithIDShouldHaveName)
+	s.Step(`^I delete the item with ID (\d+)$`, steps.IDeleteTheItemWithID)
 }
 
-func iEat(ctx context.Context, num int) (context.Context, error) {
-  available, ok := ctx.Value(godogsCtxKey{}).(int)
-  if !ok {
-    return ctx, errors.New("there are no godogs available")
-  }
-
-  if available < num {
-    return ctx, fmt.Errorf("you cannot eat %d godogs, there are %d available", num, available)
-  }
-
-  available -= num
-
-  return context.WithValue(ctx, godogsCtxKey{}, available), nil
-}
-
-func thereShouldBeRemaining(ctx context.Context, remaining int) error {
-  available, ok := ctx.Value(godogsCtxKey{}).(int)
-  if !ok {
-    return errors.New("there are no godogs available")
-  }
-
-  if available != remaining {
-    return fmt.Errorf("expected %d godogs to be remaining, but there is %d", remaining, available)
-  }
-
-  return nil
-}
-
-func TestFeatures(t *testing.T) {
-  suite := godog.TestSuite{
-    ScenarioInitializer: InitializeScenario,
-    Options: &godog.Options{
-      Format:   "cucumber",
-      Paths:    []string{"features"},
-      TestingT: t, // Testing instance that will run subtests.
-    },
-  }
-
-  file, err := os.Create("godog_report.json")
-	if err != nil {
-		fmt.Println("Failed to create report file:", err)
-		os.Exit(1)
+func TestMain(m *testing.M) {
+	opts := godog.Options{
+		Format: "cucumber",
+		Paths:  []string{"features"},
+		Output: os.Stdout,
 	}
-	defer file.Close()
+	status := godog.TestSuite{
+		Name:                "godog",
+		ScenarioInitializer: FeatureContext,
+		Options:             &opts,
+	}.Run()
 
-	suite.Options.Output = file
+	if st := m.Run(); st > status {
+		status = st
+	}
 
-  if suite.Run() != 0 {
-    t.Fatal("non-zero status returned, failed to run feature tests")
-  }
-}
-
-func InitializeScenario(sc *godog.ScenarioContext) {
-  sc.Step(`^there are (\d+) godogs$`, thereAreGodogs)
-  sc.Step(`^I eat (\d+)$`, iEat)
-  sc.Step(`^there should be (\d+) remaining$`, thereShouldBeRemaining)
+	os.Exit(status)
 }
