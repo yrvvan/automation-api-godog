@@ -16,10 +16,10 @@
   $ source ~/.zshrc
   ```
 - Check your godog version
+  <img width="289" alt="Screen Shot 2024-07-23 at 17 36 09" src="https://github.com/user-attachments/assets/87992a4b-91ef-44dd-b7d6-d800eebb8cb4">
   ```
   $ godog version
   ```
-<img width="289" alt="Screen Shot 2024-07-23 at 17 36 09" src="https://github.com/user-attachments/assets/87992a4b-91ef-44dd-b7d6-d800eebb8cb4">
 
 ### Getting started
 #### Step 1 - Setup a go module
@@ -28,11 +28,10 @@
 
 #### Step 2 - Run the test
 Run the test in the directory to run the steps you have defined
+<img width="484" alt="Screen Shot 2024-07-23 at 17 36 34" src="https://github.com/user-attachments/assets/c80d25e7-82cb-4f13-8c47-447cdcabeeb4">
 ```sh
 $ make tests
 ```
-<img width="484" alt="Screen Shot 2024-07-23 at 17 36 34" src="https://github.com/user-attachments/assets/c80d25e7-82cb-4f13-8c47-447cdcabeeb4">
-
 After `report.json` file generated in reports folder, you can run this command to see the report
 <img width="220" alt="Screen Shot 2024-07-23 at 17 37 00" src="https://github.com/user-attachments/assets/60ca6489-6038-4851-a592-5c19a0418f22">
 ```sh
